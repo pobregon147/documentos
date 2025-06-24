@@ -11,7 +11,7 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://TU_API_GATEWAY_URL/dev/documentos', {
+            const response = await fetch('https://twsxytj6ya.execute-api.us-east-2.amazonaws.com/dev/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

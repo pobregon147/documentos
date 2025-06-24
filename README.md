@@ -7,4 +7,4 @@
 ## Instalación
 1. Clonar repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/documentos-web.git
+   git clone https://github.com/pobregon147/documentos.git

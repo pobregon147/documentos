@@ -12,7 +12,7 @@ function App({ signOut, user }) {
   const [documentos, setDocumentos] = useState([]);
 
   const cargarDocumentos = async () => {
-    const response = await fetch('https://TU_API_GATEWAY_URL/dev/documentos');
+    const response = await fetch('https://twsxytj6ya.execute-api.us-east-2.amazonaws.com/dev/');
     const data = await response.json();
     setDocumentos(data);
   };
