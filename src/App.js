@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import DocumentosTable from './components/DocumentosTable';
-import RegistrarDocumento from './components/RegistrarDocumento';
+import RegistrarDocumento from './components/RegistrarDocumentos';
 import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 
