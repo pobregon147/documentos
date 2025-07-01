@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Container, Button, Typography } from '@mui/material'; // Importa componentes de MUI
+import { Container, Button, Typography, Box } from '@mui/material'; // Importa componentes de MUI
 import DocumentosTable from './components/DocumentosTable';
 import RegistrarDocumento from './components/RegistrarDocumentos';
 import awsconfig from './aws-exports';
