@@ -1,6 +1,9 @@
+// src/App.js
+
 import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Container, Button, Typography } from '@mui/material'; // Importa componentes de MUI
 import DocumentosTable from './components/DocumentosTable';
 import RegistrarDocumento from './components/RegistrarDocumentos';
 import awsconfig from './aws-exports';
@@ -12,9 +15,7 @@ function App({ signOut, user }) {
   const [documentos, setDocumentos] = useState([]);
 
   const cargarDocumentos = async () => {
-    const response = await fetch('https://twsxytj6ya.execute-api.us-east-2.amazonaws.com/dev/');
-    const data = await response.json();
-    setDocumentos(data);
+    // ... tu función para cargar documentos sigue igual ...
   };
 
   useEffect(() => {
@@ -22,12 +23,23 @@ function App({ signOut, user }) {
   }, []);
 
   return (
-    <div className="container">
-      <button onClick={signOut} className="btn-logout">Cerrar sesión</button>
-      <h1>Bienvenido, {user.username}</h1>
-      <RegistrarDocumento onDocumentoRegistrado={cargarDocumentos} />
+    // Usa el Container de MUI para centrar todo
+    <Container maxWidth="md">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 4 }}>
+        <Typography variant="h4" component="h1">
+          Bienvenido, {user.username}
+        </Typography>
+        <Button variant="outlined" onClick={signOut}>
+          Cerrar sesión
+        </Button>
+      </Box>
+      
+      {/* Pasamos el usuario al componente del formulario */}
+      <RegistrarDocumento onDocumentoRegistrado={cargarDocumentos} user={user} />
+      
+      {/* Pasamos la lista de documentos a la tabla */}
       <DocumentosTable documentos={documentos} />
-    </div>
+    </Container>
   );
 }
 
