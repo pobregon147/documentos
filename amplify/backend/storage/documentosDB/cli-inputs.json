@@ -1,0 +1,10 @@
+{
+  "resourceName": "documentosDB",
+  "tableName": "documentos",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

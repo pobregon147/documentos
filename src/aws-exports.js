@@ -23,6 +23,20 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
+    ],
+    "aws_dynamodb_all_tables_region": "us-east-2",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "documentos-dev",
+            "region": "us-east-2"
+        }
+    ],
+    "aws_cloud_logic_custom": [
+        {
+            "name": "documentosDB",
+            "endpoint": "https://3y13t1ag2d.execute-api.us-east-2.amazonaws.com/dev",
+            "region": "us-east-2"
+        }
     ]
 };
 
