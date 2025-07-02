@@ -14,7 +14,7 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiName = 'documentosAPI'; // El nombre que le diste a tu API
+            const apiName = 'documentosSDB'; // El nombre que le diste a tu API
             const path = '/documentos';      // La ruta que configuraste
             
             const init = {
