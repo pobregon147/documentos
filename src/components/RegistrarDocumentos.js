@@ -10,7 +10,7 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
 
     const [formData, setFormData] = useState({
         numero_documento: '',
-        año: new Date().getFullYear(),
+        año: '',
         usuario: '',
         asunto: '',
         fecha: hoy // <-- Añadimos el campo fecha aquí
@@ -37,7 +37,7 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
             // Limpiamos el formulario para el siguiente registro
             setFormData({
                 numero_documento: '',
-                año: new Date().getFullYear(),
+                año: '',
                 usuario: '',
                 asunto: '',
                 fecha: hoy 
