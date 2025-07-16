@@ -22,7 +22,7 @@ exports.handler = async (event) => {
                 // }
 
                 await dynamoDb.put({
-                    TableName: 'Documentos', // Asegúrate que el nombre de la tabla sea correcto
+                    TableName: 'documentos-dev', // Asegúrate que el nombre de la tabla sea correcto
                     Item: documento
                 }).promise();
 
