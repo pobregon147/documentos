@@ -1,6 +1,6 @@
 {
   "api": {
-    "documentosDB": {
+    "documentosAPI": {
       "dependsOn": [
         {
           "attributes": [
@@ -16,7 +16,7 @@
     }
   },
   "auth": {
-    "documentos82809ec1": {
+    "documentos73208063": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -55,7 +55,7 @@
             "Arn"
           ],
           "category": "storage",
-          "resourceName": "documentosDB"
+          "resourceName": "DocumentosDB"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -81,7 +81,7 @@
     }
   },
   "storage": {
-    "documentosDB": {
+    "DocumentosDB": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storagedocumentosDBName": {
+    "storageDocumentosDBName": {
       "Type": "String",
-      "Default": "storagedocumentosDBName"
+      "Default": "storageDocumentosDBName"
     },
-    "storagedocumentosDBArn": {
+    "storageDocumentosDBArn": {
       "Type": "String",
-      "Default": "storagedocumentosDBArn"
+      "Default": "storageDocumentosDBArn"
     }
   },
   "Conditions": {
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "documentosLambdaRole757bc212",
+            "documentosLambdaRoled9528183",
             {
               "Fn::Join": [
                 "",
                 [
-                  "documentosLambdaRole757bc212",
+                  "documentosLambdaRoled9528183",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedocumentosDBArn"
+                  "Ref": "storageDocumentosDBArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagedocumentosDBArn"
+                        "Ref": "storageDocumentosDBArn"
                       },
                       "index/*"
                     ]

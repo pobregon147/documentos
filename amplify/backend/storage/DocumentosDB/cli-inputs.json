@@ -1,6 +1,6 @@
 {
-  "resourceName": "documentosDB",
-  "tableName": "documentos",
+  "resourceName": "DocumentosDB",
+  "tableName": "Documentos",
   "partitionKey": {
     "fieldName": "id",
     "fieldType": "string"

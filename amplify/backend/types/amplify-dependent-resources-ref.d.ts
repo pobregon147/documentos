@@ -1,13 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "documentosDB": {
+    "documentosAPI": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
     }
   },
   "auth": {
-    "documentos82809ec1": {
+    "documentos73208063": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -27,7 +27,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "documentosDB": {
+    "DocumentosDB": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",

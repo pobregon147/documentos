@@ -3,10 +3,10 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-2",
-    "aws_cognito_identity_pool_id": "us-east-2:0f3b368a-49e6-4358-937f-fee1ef40f090",
+    "aws_cognito_identity_pool_id": "us-east-2:fb4710ea-707f-43c1-a01a-89e9f3866ebd",
     "aws_cognito_region": "us-east-2",
-    "aws_user_pools_id": "us-east-2_VzxE2GJxa",
-    "aws_user_pools_web_client_id": "18eqrn751ka79fg3b7hvohkia7",
+    "aws_user_pools_id": "us-east-2_G95IXHcF5",
+    "aws_user_pools_web_client_id": "112cemf9nm47go8uev98i3c18p",
     "oauth": {},
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
@@ -27,14 +27,14 @@ const awsmobile = {
     "aws_dynamodb_all_tables_region": "us-east-2",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "documentos-dev",
+            "tableName": "Documentos-dev",
             "region": "us-east-2"
         }
     ],
     "aws_cloud_logic_custom": [
         {
-            "name": "documentosDB",
-            "endpoint": "https://3y13t1ag2d.execute-api.us-east-2.amazonaws.com/dev",
+            "name": "documentosAPI",
+            "endpoint": "https://qhthf3y7o6.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
         }
     ]
