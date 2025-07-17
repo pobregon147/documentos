@@ -3,10 +3,10 @@
 
 const awsmobile = {
     "aws_project_region": "us-east-2",
-    "aws_cognito_identity_pool_id": "us-east-2:fb4710ea-707f-43c1-a01a-89e9f3866ebd",
+    "aws_cognito_identity_pool_id": "us-east-2:ba0fe178-f530-470e-8498-ff4f6625cb58",
     "aws_cognito_region": "us-east-2",
-    "aws_user_pools_id": "us-east-2_G95IXHcF5",
-    "aws_user_pools_web_client_id": "112cemf9nm47go8uev98i3c18p",
+    "aws_user_pools_id": "us-east-2_BTKU4JAnG",
+    "aws_user_pools_web_client_id": "2087foe6prjhb1pmrvbjeu2gd9",
     "oauth": {},
     "aws_cognito_username_attributes": [],
     "aws_cognito_social_providers": [],
@@ -34,7 +34,7 @@ const awsmobile = {
     "aws_cloud_logic_custom": [
         {
             "name": "documentosAPI",
-            "endpoint": "https://qhthf3y7o6.execute-api.us-east-2.amazonaws.com/dev",
+            "endpoint": "https://wxvn5782gl.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
         }
     ]
