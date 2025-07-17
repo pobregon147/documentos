@@ -5,42 +5,44 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import { API } from 'aws-amplify';
 
 const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
-    // Obtenemos la fecha de hoy en formato YYYY-MM-DD para el valor por defecto
     const hoy = new Date().toISOString().split('T')[0];
 
     const [formData, setFormData] = useState({
         numero_documento: '',
-        año: '',
+        fecha: hoy,
+        ano: new Date().getFullYear(),
         usuario: '',
-        asunto: '',
-        fecha: hoy // <-- Añadimos el campo fecha aquí
+        asunto: ''
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const apiName = 'documentosDB'; // Asegúrate que este sea el nombre correcto de tu API
+            const apiName = 'documentosAPI'; // O 'documentosDB', el nombre que le hayas dado
             const path = '/documentos';
             
+            // --- CAMBIO CLAVE AQUÍ ---
+            // Creamos una copia de los datos y convertimos 'ano' a número
+            const dataParaEnviar = {
+                ...formData,
+                ano: parseInt(formData.ano, 10) // Convertimos el año a número
+            };
+
             const init = {
-                body: {
-                    ...formData,
-                    id: Date.now().toString(), // Generamos el ID aquí
-                }, 
+                body: { ...dataParaEnviar, id: Date.now().toString() }, 
                 headers: {},
             };
 
             await API.post(apiName, path, init);
 
             alert('¡Documento registrado con éxito!');
-            onDocumentoRegistrado(); 
-            // Limpiamos el formulario para el siguiente registro
+            onDocumentoRegistrado();
             setFormData({
                 numero_documento: '',
-                año: '',
+                fecha: hoy,
+                ano: new Date().getFullYear(),
                 usuario: '',
-                asunto: '',
-                fecha: hoy 
+                asunto: ''
             });
 
         } catch (error) {
@@ -56,21 +58,17 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
             </Typography>
             
             <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 2 }}>
-                
-                {/* --- NUEVO CAMPO DE FECHA --- */}
+                {/* ... (Tus otros campos de texto no cambian) ... */}
                 <TextField 
-                  label="Fecha del Documento" 
-                  type="date" // Esto crea un selector de fecha
+                  label="Año" 
                   variant="outlined"
-                  value={formData.fecha}
-                  onChange={(e) => setFormData({...formData, fecha: e.target.value})}
-                  required 
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  type="number" // El tipo "number" en el input ayuda a la validación en el navegador
+                  value={formData.ano}
+                  onChange={(e) => setFormData({...formData, ano: e.target.value})}
+                  required
                 />
-
-                <TextField 
+                {/* ... (El resto de tus campos y el botón) ... */}
+                 <TextField 
                   label="N° Documento" 
                   variant="outlined"
                   value={formData.numero_documento}
@@ -78,12 +76,15 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
                   required 
                 />
                 <TextField 
-                  label="Año" 
+                  label="Fecha del Documento" 
+                  type="date"
                   variant="outlined"
-                  type="number"
-                  value={formData.año}
-                  onChange={(e) => setFormData({...formData, año: e.target.value})}
-                  required
+                  value={formData.fecha}
+                  onChange={(e) => setFormData({...formData, fecha: e.target.value})}
+                  required 
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
                 <TextField 
                   label="Usuario" 

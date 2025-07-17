@@ -26,7 +26,7 @@ const DocumentosTable = ({ documentos }) => {
             <TableRow key={doc.id}>
               <TableCell>{doc.numero_documento}</TableCell>
               <TableCell>{new Date(doc.fecha).toLocaleDateString()}</TableCell>
-              <TableCell>{doc.año}</TableCell>
+              <TableCell>{doc.ano}</TableCell>
               <TableCell>{doc.usuario}</TableCell>
               <TableCell>{doc.asunto}</TableCell>
             </TableRow>
