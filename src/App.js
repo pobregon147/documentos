@@ -19,7 +19,7 @@ function App({ signOut, user }) {
   // Función para cargar los documentos desde tu API
   const cargarDocumentos = async () => {
     try {
-      const apiName = 'documentosDB'; // El nombre que le diste a tu API en Amplify
+      const apiName = 'documentosAPI'; // El nombre que le diste a tu API en Amplify
       const path = '/documentos';      // La ruta que configuraste
       const response = await API.get(apiName, path);
       setDocumentos(response);
