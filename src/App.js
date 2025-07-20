@@ -1,26 +1,24 @@
 // src/App.js
 
 import React, { useState, useEffect } from 'react';
-import { Amplify, API } from 'aws-amplify'; // Asegúrate de importar API también
+import { Amplify, API } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Container, Button, Typography, Box } from '@mui/material';
+import { Container, Button, Typography, Box, TextField } from '@mui/material'; // Añade TextField
 import DocumentosTable from './components/DocumentosTable';
 import RegistrarDocumento from './components/RegistrarDocumentos';
 import awsconfig from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 
-// Configura Amplify con tu archivo de exportaciones
 Amplify.configure(awsconfig);
 
 function App({ signOut, user }) {
-  // --- Esta es la lógica de useState y useEffect ---
   const [documentos, setDocumentos] = useState([]);
+  const [terminoBusqueda, setTerminoBusqueda] = useState(''); // Nuevo estado para la búsqueda
 
-  // Función para cargar los documentos desde tu API
   const cargarDocumentos = async () => {
     try {
-      const apiName = 'documentosAPI'; // El nombre que le diste a tu API en Amplify
-      const path = '/documentos';      // La ruta que configuraste
+      const apiName = 'documentosAPI';
+      const path = '/documentos';
       const response = await API.get(apiName, path);
       setDocumentos(response);
     } catch (error) {
@@ -28,31 +26,47 @@ function App({ signOut, user }) {
     }
   };
 
-  // useEffect se ejecuta una vez cuando el componente se carga para llamar a la función
   useEffect(() => {
     cargarDocumentos();
   }, []);
-  // --- Fin de la lógica ---
+
+  // Lógica para filtrar los documentos
+  const documentosFiltrados = documentos.filter(doc => {
+    const textoBusqueda = terminoBusqueda.toLowerCase();
+    return (
+      (doc.numero_documento && doc.numero_documento.toLowerCase().includes(textoBusqueda)) ||
+      (doc.usuario && doc.usuario.toLowerCase().includes(textoBusqueda)) ||
+      (doc.asunto && doc.asunto.toLowerCase().includes(textoBusqueda))
+    );
+  });
 
   return (
-    <Container maxWidth="lg"> {/* Aumenté el ancho para que quepa mejor */}
+    <Container maxWidth="lg">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
         <Typography variant="h4" component="h1">
           Sistema de Documentos
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-           <Typography>
-            Usuario: **{user.username}**
-           </Typography>
-           <Button variant="outlined" onClick={signOut}>
-            Cerrar sesión
-           </Button>
+          <Typography>Usuario: **{user.username}**</Typography>
+          <Button variant="outlined" onClick={signOut}>Cerrar sesión</Button>
         </Box>
       </Box>
       
       <RegistrarDocumento onDocumentoRegistrado={cargarDocumentos} />
       
-      <DocumentosTable documentos={documentos} />
+      {/* --- CAMPO DE BÚSQUEDA --- */}
+      <Box sx={{ my: 2 }}>
+        <TextField
+          fullWidth
+          label="Buscar por N° Documento, Usuario o Asunto"
+          variant="outlined"
+          value={terminoBusqueda}
+          onChange={(e) => setTerminoBusqueda(e.target.value)}
+        />
+      </Box>
+      
+      {/* Le pasamos los documentos ya filtrados a la tabla */}
+      <DocumentosTable documentos={documentosFiltrados} />
     </Container>
   );
 }
