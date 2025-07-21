@@ -18,7 +18,7 @@
       "function": {
         "documentosFunction": {
           "deploymentBucketName": "amplify-documentos-dev-91f3b-deployment",
-          "s3Key": "amplify-builds/documentosFunction-507647533243544a7153-build.zip"
+          "s3Key": "amplify-builds/documentosFunction-79446549666b46742b6c-build.zip"
         }
       },
       "storage": {
