@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-documentos-dev-91f3b-unauthRole",
       "StackName": "amplify-documentos-dev-91f3b",
       "StackId": "arn:aws:cloudformation:us-east-2:516241723127:stack/amplify-documentos-dev-91f3b/5e7aa850-6347-11f0-a39c-02be13f1a2a1",
-      "AmplifyAppId": "d3i2erv06cqdo9"
+      "AmplifyAppId": "d3i2erv06cqdo9",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-documentos-dev-91f3b-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
