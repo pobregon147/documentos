@@ -61,12 +61,20 @@ function App({ signOut, user }) {
   };
 
   // Lógica para filtrar los documentos
-  const documentosFiltrados = documentos.filter(doc => {
+   const documentosFiltrados = documentos.filter(doc => {
+    // Si no hay término de búsqueda, muestra todos los documentos
+    if (!terminoBusqueda) {
+      return true;
+    }
     const textoBusqueda = terminoBusqueda.toLowerCase();
+    // Aseguramos que las propiedades existan antes de buscar en ellas
+    const numeroDocumento = doc.numero_documento || '';
+    const usuario = doc.usuario || '';
+    const asunto = doc.asunto || '';
     return (
-      (doc.numero_documento && doc.numero_documento.toLowerCase().includes(textoBusqueda)) ||
-      (doc.usuario && doc.usuario.toLowerCase().includes(textoBusqueda)) ||
-      (doc.asunto && doc.asunto.toLowerCase().includes(textoBusqueda))
+      numeroDocumento.toLowerCase().includes(textoBusqueda) ||
+      usuario.toLowerCase().includes(textoBusqueda) ||
+      asunto.toLowerCase().includes(textoBusqueda)
     );
   });
 
