@@ -74,7 +74,7 @@ function App({ signOut, user }) {
     <Container maxWidth="lg">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
         <Typography variant="h4" component="h1">
-          Sistema de Documentos
+          Sistema de Documentos.
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Typography>Usuario: **{user.username}**</Typography>
