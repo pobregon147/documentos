@@ -1,4 +1,11 @@
-// amplify/backend/function/documentosFunction/src/app.js
+/* Amplify Params - DO NOT EDIT
+	AUTH_DOCUMENTOS1E41F9FB_USERPOOLID
+	ENV
+	REGION
+	STORAGE_DOCUMENTOSDB_ARN
+	STORAGE_DOCUMENTOSDB_NAME
+	STORAGE_DOCUMENTOSDB_STREAMARN
+Amplify Params - DO NOT EDIT */// amplify/backend/function/documentosFunction/src/app.js
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -15,7 +22,8 @@ app.use((req, res, next) => {
     next();
 });
 
-const client = new DynamoDBClient({ region: process.env.TABLE_REGION });
+const client = new DynamoDBClient
+({ region: process.env.TABLE_REGION });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
 let tableName = "Documentos-dev";
