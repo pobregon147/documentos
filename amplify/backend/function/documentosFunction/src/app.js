@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 const client = new DynamoDBClient({ region: process.env.TABLE_REGION });
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
-let tableName = "resoluciones_bd2";
+let tableName = "Documentos-dev";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
