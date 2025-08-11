@@ -1,6 +1,6 @@
 {
-  "resourceName": "DocumentosDB",
-  "tableName": "Documentos",
+  "resourceName": "placeholderDB",
+  "tableName": "placeholdertable",
   "partitionKey": {
     "fieldName": "id",
     "fieldType": "string"

@@ -27,7 +27,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "DocumentosDB": {
+    "placeholderDB": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",

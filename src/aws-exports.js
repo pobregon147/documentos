@@ -27,14 +27,14 @@ const awsmobile = {
     "aws_dynamodb_all_tables_region": "us-east-2",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "Documentos-dev",
+            "tableName": "placeholdertable-dev",
             "region": "us-east-2"
         }
     ],
     "aws_cloud_logic_custom": [
         {
             "name": "documentosAPI",
-            "endpoint": "https://cetrdl2xja.execute-api.us-east-2.amazonaws.com/dev",
+            "endpoint": "https://hbc3hpggfh.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
         }
     ]

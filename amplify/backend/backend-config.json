@@ -55,7 +55,7 @@
             "Arn"
           ],
           "category": "storage",
-          "resourceName": "DocumentosDB"
+          "resourceName": "placeholderDB"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -81,7 +81,7 @@
     }
   },
   "storage": {
-    "DocumentosDB": {
+    "placeholderDB": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

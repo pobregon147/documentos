@@ -16,14 +16,14 @@
       "auth": {
         "documentos1e41f9fb": {}
       },
-      "storage": {
-        "DocumentosDB": {}
-      },
       "function": {
         "documentosFunction": {
           "deploymentBucketName": "amplify-documentos-dev-91f3b-deployment",
-          "s3Key": "amplify-builds/documentosFunction-76693466314e4a66736a-build.zip"
+          "s3Key": "amplify-builds/documentosFunction-784f6664757a50636268-build.zip"
         }
+      },
+      "storage": {
+        "placeholderDB": {}
       },
       "api": {
         "documentosAPI": {}
