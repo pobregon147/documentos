@@ -1,5 +1,19 @@
 {
   "api": {
+    "documentos": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "documentosFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "documentosAPI": {
       "dependsOn": [
         {

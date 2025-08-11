@@ -36,6 +36,11 @@ const awsmobile = {
             "name": "documentosAPI",
             "endpoint": "https://lolksl3ybi.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
+        },
+        {
+            "name": "documentos",
+            "endpoint": "https://ws37bjjku6.execute-api.us-east-2.amazonaws.com/dev",
+            "region": "us-east-2"
         }
     ]
 };

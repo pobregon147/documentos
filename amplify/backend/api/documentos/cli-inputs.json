@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/documentos": {
+      "name": "/documentos",
+      "lambdaFunction": "documentosFunction",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

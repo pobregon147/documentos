@@ -26,7 +26,8 @@
         "DocumentosDB": {}
       },
       "api": {
-        "documentosAPI": {}
+        "documentosAPI": {},
+        "documentos": {}
       }
     }
   }
