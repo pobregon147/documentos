@@ -1,19 +1,5 @@
 {
   "api": {
-    "documentos": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "documentosFunction"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "documentosAPI": {
       "dependsOn": [
         {
@@ -60,17 +46,13 @@
       "build": true,
       "dependsOn": [
         {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "documentos1e41f9fb"
-        },
-        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
           "attributes": [
             "Name",
-            "Arn",
-            "StreamArn"
+            "Arn"
           ],
           "category": "storage",
           "resourceName": "DocumentosDB"

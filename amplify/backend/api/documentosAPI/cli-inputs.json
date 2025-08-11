@@ -5,13 +5,7 @@
       "name": "/documentos",
       "lambdaFunction": "documentosFunction",
       "permissions": {
-        "setting": "private",
-        "auth": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ]
+        "setting": "open"
       }
     }
   }

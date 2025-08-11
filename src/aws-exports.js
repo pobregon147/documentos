@@ -34,12 +34,7 @@ const awsmobile = {
     "aws_cloud_logic_custom": [
         {
             "name": "documentosAPI",
-            "endpoint": "https://lolksl3ybi.execute-api.us-east-2.amazonaws.com/dev",
-            "region": "us-east-2"
-        },
-        {
-            "name": "documentos",
-            "endpoint": "https://ws37bjjku6.execute-api.us-east-2.amazonaws.com/dev",
+            "endpoint": "https://cetrdl2xja.execute-api.us-east-2.amazonaws.com/dev",
             "region": "us-east-2"
         }
     ]

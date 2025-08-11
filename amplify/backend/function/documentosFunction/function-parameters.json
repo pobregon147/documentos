@@ -1,21 +1,3 @@
 {
-  "lambdaLayers": [],
-  "permissions": {
-    "auth": {
-      "documentos1e41f9fb": [
-        "create",
-        "read",
-        "update",
-        "delete"
-      ]
-    },
-    "storage": {
-      "DocumentosDB": [
-        "create",
-        "read",
-        "update",
-        "delete"
-      ]
-    }
-  }
+  "lambdaLayers": []
 }

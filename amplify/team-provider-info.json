@@ -16,18 +16,17 @@
       "auth": {
         "documentos1e41f9fb": {}
       },
-      "function": {
-        "documentosFunction": {
-          "deploymentBucketName": "amplify-documentos-dev-91f3b-deployment",
-          "s3Key": "amplify-builds/documentosFunction-73316b6339792f2f4f76-build.zip"
-        }
-      },
       "storage": {
         "DocumentosDB": {}
       },
+      "function": {
+        "documentosFunction": {
+          "deploymentBucketName": "amplify-documentos-dev-91f3b-deployment",
+          "s3Key": "amplify-builds/documentosFunction-76693466314e4a66736a-build.zip"
+        }
+      },
       "api": {
-        "documentosAPI": {},
-        "documentos": {}
+        "documentosAPI": {}
       }
     }
   }
