@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Amplify, API } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Container, Button, Typography, Box, TextField } from '@mui/material';
+import { Container, Button, Typography, Box, TextField,Grid } from '@mui/material';
 import DocumentosTable from './components/DocumentosTable';
 import RegistrarDocumento from './components/RegistrarDocumentos';
 import EditarDocumentoModal from './components/EditarDocumentoModal'; // <-- Importa el modal
