@@ -1,17 +1,29 @@
 // src/components/DocumentosTable.js
 
 import React, { useState } from 'react';
+// Importa Storage de Amplify y el ícono de descarga
 import { Storage } from 'aws-amplify';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography,IconButton,TablePagination} from '@mui/material';
+import { 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableContainer, 
+    TableHead, 
+    TableRow, 
+    Paper, 
+    Typography,
+    IconButton,
+    TablePagination
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import DownloadIcon from '@mui/icons-material/Download';
+import DownloadIcon from '@mui/icons-material/Download'; // <-- Ícono de descarga
 
 const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
-  // --- LÓGICA PARA LA PAGINACIÓN ---
+  // --- Lógica para la paginación (sin cambios) ---
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Puedes cambiar este número (10, 25, 50)
-  
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -20,19 +32,20 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  // --- FIN DE LA LÓGICA DE PAGINACIÓN ---
-
-  // --- FUNCIÓN PARA DESCARGAR ---
+  
+  // --- NUEVA FUNCIÓN PARA DESCARGAR ---
   const handleDownload = async (archivoKey) => {
     try {
-      // Obtenemos una URL firmada y temporal para el archivo
-      const url = await Storage.get(archivoKey, { expires: 60 }); // URL válida por 60 segundos
-      window.open(url, '_blank'); // Abre el PDF en una nueva pestaña
+      // Storage.get() genera una URL temporal y segura para acceder al archivo
+      const url = await Storage.get(archivoKey, { expires: 120 }); // La URL es válida por 2 minutos
+      // Abre el archivo en una nueva pestaña del navegador
+      window.open(url, '_blank');
     } catch (error) {
       console.error('Error al descargar el archivo:', error);
       alert('No se pudo descargar el archivo.');
     }
   };
+  // --- FIN DE LA NUEVA FUNCIÓN ---
 
   return (
     <Paper>
@@ -52,7 +65,6 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* Ahora solo mostramos una "rebanada" (slice) de los datos */}
             {documentos && documentos.length > 0 ? (
               documentos
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -64,11 +76,15 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
                     <TableCell>{doc.usuario}</TableCell>
                     <TableCell>{doc.asunto}</TableCell>
                     <TableCell align="right">
+                      
+                      {/* --- BOTÓN DE DESCARGA AÑADIDO --- */}
+                      {/* Este botón solo aparece si el documento tiene un PDF asociado */}
                       {doc.archivoPdfKey && (
                         <IconButton onClick={() => handleDownload(doc.archivoPdfKey)}>
                           <DownloadIcon />
                         </IconButton>
                       )}
+
                       <IconButton onClick={() => onEdit(doc)}>
                         <EditIcon />
                       </IconButton>
@@ -90,9 +106,9 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
       </TableContainer>
       
       <TablePagination
-        rowsPerPageOptions={[10, 25, 50]} // Opciones de cuántas filas por página
+        rowsPerPageOptions={[10, 25, 50]}
         component="div"
-        count={documentos.length} // El número total de documentos
+        count={documentos.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
