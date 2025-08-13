@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
-import { API } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 
 const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
     const hoy = new Date().toISOString().split('T')[0];
@@ -15,39 +15,47 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
         asunto: ''
     });
 
+    const [archivo, setArchivo] = useState(null);
+    const handleFileChange = (e) => {
+        setArchivo(e.target.files[0]);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!archivo) {
+            alert("Por favor, selecciona un archivo PDF.");
+            return;
+        }
+
         try {
-            const apiName = 'documentosAPI'; // O 'documentosDB', el nombre que le hayas dado
-            const path = '/documentos';
-            
-            // --- CAMBIO CLAVE AQUÍ ---
-            // Creamos una copia de los datos y convertimos 'ano' a número
+            // 1. Subir el archivo a S3
+            const nombreArchivo = `${Date.now()}-${archivo.name}`;
+            const archivoSubido = await Storage.put(nombreArchivo, archivo, {
+                contentType: archivo.type
+            });
+            const archivoKey = archivoSubido.key; // Obtenemos la "llave" del archivo en S3
+
+            // 2. Preparar los datos para DynamoDB, incluyendo la llave del archivo
             const dataParaEnviar = {
                 ...formData,
-                ano: parseInt(formData.ano, 10) // Convertimos el año a número
+                ano: parseInt(formData.ano, 10),
+                archivoPdfKey: archivoKey // <-- Nuevo campo para guardar en la BD
             };
 
-            const init = {
-                body: { ...dataParaEnviar, id: Date.now().toString() }, 
-                headers: {},
-            };
-
+            // 3. Guardar en DynamoDB
+            const apiName = 'documentosAPI';
+            const path = '/documentos';
+            const init = { body: dataParaEnviar };
             await API.post(apiName, path, init);
 
-            alert('¡Documento registrado con éxito!');
+            alert('¡Documento y archivo registrados con éxito!');
             onDocumentoRegistrado();
-            setFormData({
-                numero_documento: '',
-                fecha: hoy,
-                ano: new Date().getFullYear(),
-                usuario: '',
-                asunto: ''
-            });
-
+            // ... (limpiar formulario)
+            setArchivo(null);
+            e.target.reset(); // Limpia el campo del archivo
         } catch (error) {
-            console.error('Error al registrar el documento:', error);
-            alert('Hubo un error al registrar el documento.');
+            console.error('Error al registrar:', error);
+            alert('Hubo un error al registrar.');
         }
     };
 
@@ -102,6 +110,11 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
                   fullWidth
                   sx={{ flexGrow: 1 }}
                 />
+                <Button variant="outlined" component="label" fullWidth>
+                    {archivo ? archivo.name : "Seleccionar PDF"}
+                    <input type="file" accept="application/pdf" hidden onChange={handleFileChange} />
+                </Button>
+                
                 <Button type="submit" variant="contained" color="primary" size="large">
                     Registrar
                 </Button>

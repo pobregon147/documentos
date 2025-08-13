@@ -1,0 +1,16 @@
+{
+  "resourceName": "almacenamientoDocumentos",
+  "policyUUID": "051688ce",
+  "bucketName": "documentos047727dca5c94865a0ab8d248d926d80",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

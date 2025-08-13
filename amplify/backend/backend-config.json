@@ -81,6 +81,11 @@
     }
   },
   "storage": {
+    "almacenamientoDocumentos": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    },
     "placeholderDB": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

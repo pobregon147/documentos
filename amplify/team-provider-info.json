@@ -23,7 +23,8 @@
         }
       },
       "storage": {
-        "placeholderDB": {}
+        "placeholderDB": {},
+        "almacenamientoDocumentos": {}
       },
       "api": {
         "documentosAPI": {}

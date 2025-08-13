@@ -31,6 +31,8 @@ const awsmobile = {
             "region": "us-east-2"
         }
     ],
+    "aws_user_files_s3_bucket": "documentos047727dca5c94865a0ab8d248d926d8091f3b-dev",
+    "aws_user_files_s3_bucket_region": "us-east-2",
     "aws_cloud_logic_custom": [
         {
             "name": "documentosAPI",

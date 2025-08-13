@@ -27,6 +27,10 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
+    "almacenamientoDocumentos": {
+      "BucketName": "string",
+      "Region": "string"
+    },
     "placeholderDB": {
       "Arn": "string",
       "Name": "string",
