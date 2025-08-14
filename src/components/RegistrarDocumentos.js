@@ -1,8 +1,7 @@
 // src/components/RegistrarDocumentos.js
 
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
-// Importa 'Storage' de aws-amplify
+import { TextField, Button, Box, Typography, Grid } from '@mui/material';
 import { API, Storage } from 'aws-amplify';
 
 const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
@@ -15,8 +14,6 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
         usuario: '',
         asunto: ''
     });
-    
-    // Nuevo estado para guardar el archivo seleccionado
     const [archivo, setArchivo] = useState(null);
 
     const handleFileChange = (e) => {
@@ -27,53 +24,35 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Verificamos que se haya seleccionado un archivo
         if (!archivo) {
-            alert('Por favor, selecciona un archivo PDF para subir.');
+            alert("Por favor, selecciona un archivo PDF.");
             return;
         }
 
         try {
-            // 1. Subimos el archivo a S3
             const nombreArchivo = `${Date.now()}-${archivo.name}`;
-            const archivoSubido = await Storage.put(nombreArchivo, archivo, {
-                contentType: 'application/pdf'
-            });
+            const archivoSubido = await Storage.put(nombreArchivo, archivo, { contentType: 'application/pdf' });
             
-            // La 'key' es el nombre con el que se guardó el archivo en S3
-            const archivoKey = archivoSubido.key;
-
-            // 2. Preparamos los datos para guardar en DynamoDB
             const dataParaEnviar = {
                 ...formData,
                 ano: parseInt(formData.ano, 10),
-                archivoPdfKey: archivoKey // <-- Añadimos la referencia al archivo
+                archivoPdfKey: archivoSubido.key
             };
 
-            // 3. Enviamos los datos a la API
             const apiName = 'documentosAPI';
             const path = '/documentos';
-            const init = { body: dataParaEnviar };
-
-            await API.post(apiName, path, init);
+            await API.post(apiName, path, { body: dataParaEnviar });
 
             alert('¡Documento y archivo registrados con éxito!');
-            onDocumentoRegistrado(); // Actualiza la tabla
+            onDocumentoRegistrado();
             
-            // Limpiamos el formulario y el estado del archivo
-            setFormData({
-                numero_documento: '',
-                fecha: hoy,
-                ano: new Date().getFullYear(),
-                usuario: '',
-                asunto: ''
-            });
+            setFormData({ numero_documento: '', fecha: hoy, ano: new Date().getFullYear(), usuario: '', asunto: '' });
             setArchivo(null);
-            e.target.reset(); // Limpia el campo de selección de archivo
+            e.target.reset();
 
         } catch (error) {
-            console.error('Error al registrar el documento:', error);
-            alert('Hubo un error al registrar el documento.');
+            console.error('Error al registrar:', error);
+            alert('Hubo un error al registrar.');
         }
     };
 
@@ -83,18 +62,35 @@ const RegistrarDocumento = ({ onDocumentoRegistrado }) => {
                 Registrar Nuevo Documento
             </Typography>
             
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 2 }}>
-                {/* ... (Tus otros campos TextField no cambian) ... */}
-
-                {/* --- NUEVO BOTÓN PARA SELECCIONAR EL PDF --- */}
-                <Button variant="outlined" component="label" fullWidth sx={{ justifyContent: 'flex-start', textTransform: 'none', color: archivo ? 'inherit' : 'grey' }}>
-                    {archivo ? `Archivo seleccionado: ${archivo.name}` : "Seleccionar Archivo PDF *"}
-                    <input type="file" accept="application/pdf" hidden onChange={handleFileChange} />
-                </Button>
-                
-                <Button type="submit" variant="contained" color="primary" size="large">
-                    Registrar
-                </Button>
+            <Box component="form" onSubmit={handleSubmit}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={12} sm={6} md={2}>
+                        <TextField fullWidth label="Año *" type="number" value={formData.ano} onChange={(e) => setFormData({...formData, ano: e.target.value})} required />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <TextField fullWidth label="N° Documento *" value={formData.numero_documento} onChange={(e) => setFormData({...formData, numero_documento: e.target.value})} required />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <TextField fullWidth label="Fecha del Documento *" type="date" value={formData.fecha} onChange={(e) => setFormData({...formData, fecha: e.target.value})} InputLabelProps={{ shrink: true }} required />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <TextField fullWidth label="Usuario *" value={formData.usuario} onChange={(e) => setFormData({...formData, usuario: e.target.value})} required />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField fullWidth label="Asunto *" value={formData.asunto} onChange={(e) => setFormData({...formData, asunto: e.target.value})} required />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button variant="outlined" component="label" fullWidth sx={{ justifyContent: 'flex-start', textTransform: 'none', color: archivo ? 'inherit' : 'grey' }}>
+                            {archivo ? `Archivo seleccionado: ${archivo.name}` : "Seleccionar Archivo PDF *"}
+                            <input type="file" accept="application/pdf" hidden onChange={handleFileChange} required />
+                        </Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button type="submit" variant="contained" color="primary" size="large">
+                            Registrar
+                        </Button>
+                    </Grid>
+                </Grid>
             </Box>
         </Box>
     );
