@@ -1,7 +1,5 @@
 // src/components/DocumentosTable.js
-
 import React, { useState } from 'react';
-// Importa Storage de Amplify y el ícono de descarga
 import { Storage } from 'aws-amplify';
 import { 
     Table, 
@@ -20,7 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DownloadIcon from '@mui/icons-material/Download'; // <-- Ícono de descarga
 
 const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
-  // --- Lógica para la paginación (sin cambios) ---
+  // --- Lógica para la paginación ---
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -45,7 +43,20 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
       alert('No se pudo descargar el archivo.');
     }
   };
-  // --- FIN DE LA NUEVA FUNCIÓN ---
+  // --- FUNCIÓN PARA CONVERTIR LA FECHA DE EXCEL ---
+  const convertirFechaExcel = (serial) => {
+    // Si el valor no es un número (por ejemplo, ya es una fecha como "2025-07-20"), lo devuelve tal cual.
+    if (isNaN(serial) || typeof serial !== 'number') {
+      // Si es una cadena de fecha válida, la procesamos
+      if (typeof serial === 'string' && serial.includes('-')) {
+        return new Date(serial).toLocaleDateString();
+      }
+      return serial;
+    }
+    // Fórmula para convertir el número de serie de Excel a una fecha de JavaScript
+    const fechaUTC = new Date(Date.UTC(1899, 11, 30 + parseInt(serial)));
+    return fechaUTC.toLocaleDateString();
+  };
 
   return (
     <Paper>
@@ -71,7 +82,7 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
                 .map((doc) => (
                   <TableRow key={doc.id}>
                     <TableCell>{doc.numero_documento}</TableCell>
-                    <TableCell>{new Date(doc.fecha).toLocaleDateString()}</TableCell>
+                    <TableCell>{convertirFechaExcel(doc.fecha)}</TableCell>
                     <TableCell>{doc.ano}</TableCell>
                     <TableCell>{doc.usuario}</TableCell>
                     <TableCell>{doc.asunto}</TableCell>
