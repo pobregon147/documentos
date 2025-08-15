@@ -1,6 +1,6 @@
 // src/components/DocumentosTable.js
+
 import React, { useState } from 'react';
-import { Storage } from 'aws-amplify';
 import { 
     Table, 
     TableBody, 
@@ -15,10 +15,10 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import DownloadIcon from '@mui/icons-material/Download'; // <-- Ícono de descarga
+import DownloadIcon from '@mui/icons-material/Download';
+import { Storage } from 'aws-amplify';
 
 const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
-  // --- Lógica para la paginación ---
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -30,19 +30,17 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  
-  // --- NUEVA FUNCIÓN PARA DESCARGAR ---
+
   const handleDownload = async (archivoKey) => {
     try {
-      // Storage.get() genera una URL temporal y segura para acceder al archivo
-      const url = await Storage.get(archivoKey, { expires: 120 }); // La URL es válida por 2 minutos
-      // Abre el archivo en una nueva pestaña del navegador
+      const url = await Storage.get(archivoKey, { expires: 120 });
       window.open(url, '_blank');
     } catch (error) {
       console.error('Error al descargar el archivo:', error);
       alert('No se pudo descargar el archivo.');
     }
   };
+
   // --- FUNCIÓN PARA CONVERTIR LA FECHA DE EXCEL ---
   const convertirFechaExcel = (serial) => {
     // Si el valor no es un número (por ejemplo, ya es una fecha como "2025-07-20"), lo devuelve tal cual.
@@ -57,6 +55,7 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
     const fechaUTC = new Date(Date.UTC(1899, 11, 30 + parseInt(serial)));
     return fechaUTC.toLocaleDateString();
   };
+  // --- FIN DE LA FUNCIÓN ---
 
   return (
     <Paper>
@@ -82,20 +81,17 @@ const DocumentosTable = ({ documentos, onEdit, onDelete }) => {
                 .map((doc) => (
                   <TableRow key={doc.id}>
                     <TableCell>{doc.numero_documento}</TableCell>
+                    {/* --- APLICAMOS LA FUNCIÓN DE CONVERSIÓN AQUÍ --- */}
                     <TableCell>{convertirFechaExcel(doc.fecha)}</TableCell>
                     <TableCell>{doc.ano}</TableCell>
                     <TableCell>{doc.usuario}</TableCell>
                     <TableCell>{doc.asunto}</TableCell>
                     <TableCell align="right">
-                      
-                      {/* --- BOTÓN DE DESCARGA AÑADIDO --- */}
-                      {/* Este botón solo aparece si el documento tiene un PDF asociado */}
                       {doc.archivoPdfKey && (
                         <IconButton onClick={() => handleDownload(doc.archivoPdfKey)}>
                           <DownloadIcon />
                         </IconButton>
                       )}
-
                       <IconButton onClick={() => onEdit(doc)}>
                         <EditIcon />
                       </IconButton>
