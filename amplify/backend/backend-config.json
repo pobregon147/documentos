@@ -46,16 +46,20 @@
       "build": true,
       "dependsOn": [
         {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
           "attributes": [
             "Name",
-            "Arn"
+            "Arn",
+            "StreamArn"
           ],
           "category": "storage",
           "resourceName": "placeholderDB"
+        },
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "almacenamientoDocumentos"
         }
       ],
       "providerPlugin": "awscloudformation",

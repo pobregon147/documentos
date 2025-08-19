@@ -1,4 +1,11 @@
-// amplify/backend/function/documentosFunction/src/app.js
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_ALMACENAMIENTODOCUMENTOS_BUCKETNAME
+	STORAGE_PLACEHOLDERDB_ARN
+	STORAGE_PLACEHOLDERDB_NAME
+	STORAGE_PLACEHOLDERDB_STREAMARN
+Amplify Params - DO NOT EDIT */// amplify/backend/function/documentosFunction/src/app.js
 
 const express = require('express');
 const bodyParser = require('body-parser');

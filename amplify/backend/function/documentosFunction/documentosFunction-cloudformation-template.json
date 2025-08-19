@@ -23,6 +23,14 @@
     "storageplaceholderDBArn": {
       "Type": "String",
       "Default": "storageplaceholderDBArn"
+    },
+    "storageplaceholderDBStreamArn": {
+      "Type": "String",
+      "Default": "storageplaceholderDBStreamArn"
+    },
+    "storagealmacenamientoDocumentosBucketName": {
+      "Type": "String",
+      "Default": "storagealmacenamientoDocumentosBucketName"
     }
   },
   "Conditions": {
@@ -77,6 +85,18 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "STORAGE_PLACEHOLDERDB_NAME": {
+              "Ref": "storageplaceholderDBName"
+            },
+            "STORAGE_PLACEHOLDERDB_ARN": {
+              "Ref": "storageplaceholderDBArn"
+            },
+            "STORAGE_PLACEHOLDERDB_STREAMARN": {
+              "Ref": "storageplaceholderDBStreamArn"
+            },
+            "STORAGE_ALMACENAMIENTODOCUMENTOS_BUCKETNAME": {
+              "Ref": "storagealmacenamientoDocumentosBucketName"
             }
           }
         },
@@ -192,6 +212,101 @@
                         "Ref": "storageplaceholderDBArn"
                       },
                       "index/*"
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "dynamodb:Put*",
+                "dynamodb:Create*",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PartiQLInsert",
+                "dynamodb:Get*",
+                "dynamodb:BatchGetItem",
+                "dynamodb:List*",
+                "dynamodb:Describe*",
+                "dynamodb:Scan",
+                "dynamodb:Query",
+                "dynamodb:PartiQLSelect",
+                "dynamodb:Update*",
+                "dynamodb:RestoreTable*",
+                "dynamodb:PartiQLUpdate",
+                "dynamodb:Delete*",
+                "dynamodb:PartiQLDelete"
+              ],
+              "Resource": [
+                {
+                  "Ref": "storageplaceholderDBArn"
+                },
+                {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      {
+                        "Ref": "storageplaceholderDBArn"
+                      },
+                      "index/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": "s3:ListBucket",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagealmacenamientoDocumentosBucketName"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "storagealmacenamientoDocumentosBucketName"
+                      },
+                      "/*"
                     ]
                   ]
                 }
